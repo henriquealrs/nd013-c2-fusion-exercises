@@ -54,8 +54,10 @@ SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.
 # import l1_exercises
 
 import lesson_1_lidar.examples.l1_examples as l1_examples
-import lesson_1_lidar.exercises.starter.l1_exercises as l1_exercises
+import lesson_1_lidar.exercises.starter.l1_exercises as ex_l1_exercises
+import lesson_1_lidar.exercises.solution.l1_exercises as so_l1_exercises
 
+l1_exercises = ex_l1_exercises
 
 ##################
 # Set parameters and perform initializations

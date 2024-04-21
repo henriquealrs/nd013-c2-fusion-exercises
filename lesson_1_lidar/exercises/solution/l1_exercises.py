@@ -18,10 +18,10 @@ import cv2
 import numpy as np
 import zlib
 
-## Add current working directory to path
+# Add current working directory to path
 sys.path.append(os.getcwd())
 
-## Waymo open dataset reader
+# Waymo open dataset reader
 from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2
 
 
@@ -60,8 +60,7 @@ def print_pitch_resolution(frame, lidar_name):
         ri = dataset_pb2.MatrixFloat()
         ri.ParseFromString(zlib.decompress(lidar.ri_return1.range_image_compressed))
         ri = np.array(ri.data).reshape(ri.shape.dims)
-        
-    # compute vertical field-of-view from lidar calibration 
+    # compute vertical field-of-view from lidar calibration
     lidar_calib = [obj for obj in frame.context.laser_calibrations if obj.name == lidar_name][0] # get laser calibration
     min_pitch = lidar_calib.beam_inclination_min
     max_pitch = lidar_calib.beam_inclination_max
