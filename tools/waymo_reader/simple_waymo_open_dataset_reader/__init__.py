@@ -43,7 +43,8 @@ class WaymoDataFileReader:
         self.file.seek(0,0)
 
         return table
-    
+
+
     def seek(self, offset):
         """ Seek to a specific frame record by offset.
 

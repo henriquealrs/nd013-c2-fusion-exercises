@@ -22,7 +22,7 @@ import zlib
 sys.path.append(os.getcwd())
 
 ## Waymo open dataset reader
-from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2
+from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2, label_pb2
 
 
 # Exercise C1-5-5 : Visualize intensity channel
@@ -34,27 +34,32 @@ def vis_intensity_channel(frame, lidar_name):
     # map value range to 8bit
 
     # focus on +/- 45° around the image center
-
+    pass
 
 
 # Exercise C1-5-2 : Compute pitch angle resolution
-def print_pitch_resolution(frame, lidar_name):
+def print_pitch_resolution(frame: dataset_pb2.Frame, lidar_name):
 
     print("Exercise C1-5-2")
     # load range image
-        
-    # compute vertical field-of-view from lidar calibration 
-
+    lidar_list = [l for l in frame.lasers if l.name == lidar_name]
+    lidar = lidar_list[0]
+    calib = [cl for cl in frame.context.laser_calibrations if cl.name == lidar_name][0]
+    d_rad = calib.beam_inclination_max - calib.beam_inclination_min
+    print(d_rad*180/np.pi)
+    # print(lidar)
+    # compute vertical field-of-view from lidar calibration
     # compute pitch resolution and convert it to angular minutes
 
 
 # Exercise C1-3-1 : print no. of vehicles
-def print_no_of_vehicles(frame):
-
-    print("Exercise C1-3-1")    
-
+def print_no_of_vehicles(frame: dataset_pb2.Frame):
     # find out the number of labeled vehicles in the given frame
     # Hint: inspect the data structure frame.laser_labels
+    values = label_pb2._LABEL_TYPE.values_by_name
     num_vehicles = 0
-            
+    for l in frame.laser_labels:
+        if l.type == l.TYPE_VEHICLE:
+            num_vehicles += 1
     print("number of labeled vehicles in current frame = " + str(num_vehicles))
+    return num_vehicles

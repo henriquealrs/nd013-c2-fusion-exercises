@@ -1,0 +1,22 @@
+##[pylyzer] failed /home/hlustosa/self_driving_car_engineer_nanodegree/nd013-c2-fusion-exercises/lesson_1_lidar/exercises/starter/l1_exercises.py 1711904606 1763
+.___v_desugar_1 = pyimport "PIL"
+.Image: Never
+.io = pyimport "io"
+
+.sys = pyimport "sys"
+
+.os = pyimport "os"
+
+.cv2 = pyimport "cv2"
+
+.np = pyimport "numpy"
+
+.zlib = pyimport "zlib"
+
+
+.___v_desugar_2 = pyimport "(...)"
+.dataset_pb2: Never
+.label_pb2: Never
+.vis_intensity_channel: (frame: Obj, lidar_name: Obj) -> NoneType
+.print_pitch_resolution: (frame: Obj, lidar_name: Obj) -> NoneType
+.print_no_of_vehicles: (frame: Obj) -> Nat

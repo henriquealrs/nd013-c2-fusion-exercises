@@ -1,5 +1,3 @@
-# ---------------------------------------------------------------------
-# "Loop over Waymo frames : Starting place for lesson exercises"
 # Copyright (C) 2020, Dr. Antje Muntzinger / Dr. Andreas Haja.
 #
 # Purpose of this file : Loop over all frames in a Waymo Open Dataset file
@@ -36,22 +34,27 @@ from tools.waymo_reader.simple_waymo_open_dataset_reader import utils as waymo_u
 import misc.objdet_tools as tools
 from misc.helpers import load_object_from_file
 
+
 # add exercise directories to python path to enable relative imports
 SCRIPT_DIR = os.path.dirname(os.path.realpath(os.path.join(os.getcwd(), os.path.expanduser(__file__))))
-EXE_L1 = 'lesson-1-lidar-sensor/exercises/starter'
-EXA_L1 = 'lesson-1-lidar-sensor/examples'
-EXE_L2 = 'lesson-2-object-detection/exercises/starter'
-EXA_L2 = 'lesson-2-object-detection/examples'
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXE_L1)))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXA_L1)))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXE_L2)))
-sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXA_L2)))
+# EXE_L1 = 'lesson-1-lidar-sensor/exercises/solution'
+# EXE_L1 = 'lesson-1-lidar-sensor/exercises/starter'
+# EXA_L1 = 'lesson-1-lidar-sensor/examples'
+# EXE_L2 = 'lesson-2-object-detection/exercises/starter'
+# EXA_L2 = 'lesson-2-object-detection/examples'
+# sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXE_L1)))
+# sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXA_L1)))
+# sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXE_L2)))
+# sys.path.append(os.path.normpath(os.path.join(SCRIPT_DIR, EXA_L2)))
 
-# import functions from individual exercise files
-import l2_examples
-import l2_exercises
-import l1_examples
-import l1_exercises
+# # import functions from individual exercise files
+# import l2_examples
+# import l2_exercises
+# import l1_examples
+# import l1_exercises
+
+import lesson_1_lidar.examples.l1_examples as l1_examples
+import lesson_1_lidar.exercises.starter.l1_exercises as l1_exercises
 
 
 ##################
@@ -61,7 +64,7 @@ import l1_exercises
 data_filename = 'training_segment-1005081002024129653_5313_150_5333_150_with_camera_labels.tfrecord' # Sequence 1
 #data_filename = 'training_segment-10072231702153043603_5725_000_5745_000_with_camera_labels.tfrecord' # Sequence 2
 # data_filename = 'training_segment-10963653239323173269_1924_000_1944_000_with_camera_labels.tfrecord'  # Sequence 3
-show_only_frames = [0, 10]  # show only frames in interval for debugging
+show_only_frames = [1, 10]  # show only frames in interval for debugging
 
 # set pause time between frames in ms (0 = stop between frames until key is pressed)
 vis_pause_time = 0  
@@ -93,6 +96,25 @@ while True:
         print('------------------------------')
         print('processing frame #' + str(cnt_frame))
 
+        # #########################################
+        # #########################################
+        # from PIL import Image
+        # import io
+        # camera_name = dataset_pb2.CameraName.FRONT
+        # camera = [obj for obj in frame.images if obj.name == camera_name][0]
+        # # convert the image into rgb format
+        # image = np.array(Image.open(io.BytesIO(camera.image)))
+        # image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+        # # resize the image to better fit the screen
+        # dim = (int(image.shape[1]  *0.5), int(image.shape[0]*  0.5))
+        # resized = cv2.resize(image, dim)
+        # # display the image 
+        # cv2.imshow("Front-camera image", resized)
+        # cv2.waitKey(0)
+        # exit()
+        # ################################################
+        # #################################################
+
         # Usage instruction : When working on a specific exercise, 
         # simply uncomment the respective function calls and open 
         # the implementation for more details
@@ -103,9 +125,9 @@ while True:
         lidar_name = dataset_pb2.LaserName.TOP
 
         # Exercise C1-3-1 : print no. of vehicles
-        # l1_exercises.print_no_of_vehicles(frame) 
+        # l1_exercises.print_no_of_vehicles(frame)
 
-        # Example C1-3-2 : display camera image
+        # # Example C1-3-2 : display camera image
         # l1_examples.display_image(frame)
 
         # Example C1-3-3 : print angle of vertical field of view
@@ -115,7 +137,7 @@ while True:
         # l1_examples.print_range_image_shape(frame, lidar_name)
 
         # Exercise C1-5-2 : Compute pitch angle resolution
-        # l1_exercises.print_pitch_resolution(frame, lidar_name)
+        l1_exercises.print_pitch_resolution(frame, lidar_name)
 
         # Example C1-5-3 : Retrieve maximum and minimum distance
         # l1_examples.get_max_min_range(frame, lidar_name)

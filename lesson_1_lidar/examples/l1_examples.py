@@ -29,7 +29,7 @@ from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2
 
 
 # Example C1-5-1 : Load range image
-def load_range_image(frame, lidar_name):
+def load_range_image(frame, lidar_name) -> dataset_pb2.MatrixFloat:
     
     lidar = [obj for obj in frame.lasers if obj.name == lidar_name][0] # get laser data structure from frame
     ri = []
@@ -134,20 +134,23 @@ def print_range_image_shape(frame, lidar_name):
     print(ri.shape)
 
     # extract range data and convert to 8 bit
-    #ri_range = ri[:,:,0]
-    #ri_range = ri_range * 256 / (np.amax(ri_range) - np.amin(ri_range))
-    #img_range = ri_range.astype(np.uint8)
-    
+    ri_range = ri[:, :, 0]
+    ri_range = ri_range * 256 / (np.amax(ri_range) - np.amin(ri_range))
+    img_range = ri_range.astype(np.uint8)
+
     # visualize range image
-    #cv2.imshow('range_image', img_range)
-    #cv2.waitKey(0)
+    cv2.imshow('range_image', img_range)
+    cv2.waitKey(0)
 
 
 # Example C1-3-3 : print angle of vertical field of view
 def print_vfov_lidar(frame, lidar_name):
 
     # get lidar calibration data
-    calib_lidar = [obj for obj in frame.context.laser_calibrations if obj.name == lidar_name][0]
+    calib_lidar_list = [obj for obj in frame.context.laser_calibrations if obj.name == lidar_name]
+    calib_lidar = calib_lidar_list[0]
+
+    print(len(calib_lidar.beam_inclinations))
 
     # compute vertical field of view (vfov) in rad
     vfov_rad = calib_lidar.beam_inclination_max - calib_lidar.beam_inclination_min

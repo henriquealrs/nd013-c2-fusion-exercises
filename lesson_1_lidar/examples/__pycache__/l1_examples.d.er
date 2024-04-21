@@ -1,0 +1,33 @@
+##[pylyzer] failed /home/hlustosa/self_driving_car_engineer_nanodegree/nd013-c2-fusion-exercises/lesson_1_lidar/examples/l1_examples.py 1711967469 6050
+.___v_desugar_1 = pyimport "PIL"
+.Image: Never
+.io = pyimport "io"
+
+.sys = pyimport "sys"
+
+.os = pyimport "os"
+
+.cv2 = pyimport "cv2"
+
+.o3d = pyimport "open3d"
+
+.math = pyimport "math"
+
+.np = pyimport "numpy"
+
+.zlib = pyimport "zlib"
+
+.___v_desugar_2 = pyimport "(...)"
+.RobustScaler: Never
+.StandardScaler: Never
+.QuantileTransformer: Never
+
+.___v_desugar_3 = pyimport "(...)"
+.dataset_pb2: Never
+.load_range_image: |T <: Structural({.name = E}), Type_48 <: Iterable(T), E: Type, Type_16 <: Structural({.lasers = Type_48})|(frame: Type_16, lidar_name: E) -> Array!(Never, 0)
+.range_image_to_point_cloud: |Type_16 <: Structural({.lasers = Type_48; .context = Type_80}), T <: Structural({.name = E}), Type_48 <: Iterable(T), E: Type, Type_80: Type|(frame: Type_16, lidar_name: E, vis := Bool) -> Never
+.vis_range_channel: |T <: Structural({.name = E}), Type_48 <: Iterable(T), E: Type, Type_16 <: Structural({.lasers = Type_48})|(frame: Type_16, lidar_name: E) -> Never
+.get_max_min_range: |T <: Structural({.name = E}), Type_48 <: Iterable(T), E: Type, Type_16 <: Structural({.lasers = Type_48})|(frame: Type_16, lidar_name: E) -> NoneType
+.print_range_image_shape: |T <: Structural({.name = E}), Type_48 <: Iterable(T), E: Type, Type_16 <: Structural({.lasers = Type_48})|(frame: Type_16, lidar_name: E) -> NoneType
+.print_vfov_lidar: |Type_37 <: Structural({.context = Type_105}), Type_105: Type|(frame: Type_37, lidar_name: Obj) -> NoneType
+.display_image: |Type_41 <: Structural({.images = Type_116}), T <: Structural({.name = E}), E: Type, Type_116 <: Iterable(T)|(frame: Type_41) -> Never
