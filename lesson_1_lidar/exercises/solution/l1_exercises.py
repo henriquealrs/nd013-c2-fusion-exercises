@@ -34,7 +34,7 @@ def vis_intensity_channel(frame, lidar_name):
         ri = dataset_pb2.MatrixFloat()
         ri.ParseFromString(zlib.decompress(lidar.ri_return1.range_image_compressed))
         ri = np.array(ri.data).reshape(ri.shape.dims)
-    ri[ri<0]=0.0
+    ri[ri<0] = 0.0
 
     # map value range to 8bit
     ri_intensity = ri[:,:,1]

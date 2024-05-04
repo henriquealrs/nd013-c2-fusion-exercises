@@ -17,6 +17,7 @@ import os
 import cv2
 import numpy as np
 import zlib
+from ...examples.l1_examples import load_range_image
 
 ## Add current working directory to path
 sys.path.append(os.getcwd())
@@ -27,18 +28,26 @@ from tools.waymo_reader.simple_waymo_open_dataset_reader import dataset_pb2, lab
 
 # Exercise C1-5-5 : Visualize intensity channel
 def vis_intensity_channel(frame, lidar_name):
-
     print("Exercise C1-5-5")
-    # extract range image from frame
-
-    # map value range to 8bit
-
-    # focus on +/- 45° around the image center
-    pass
-
+    ############################
+    lidar = [obj for obj in frame.lasers if obj.name == lidar_name][0] # get laser data structure from frame
+    ri = []
+    if len(lidar.ri_return1.range_image_compressed) > 0:  # use first response
+        ri = dataset_pb2.MatrixFloat()
+        ri.ParseFromString(zlib.decompress(lidar.ri_return1.range_image_compressed))
+        ri = np.array(ri.data).reshape(ri.shape.dims)
+    ri[ri < 0] = 0.0
+    ri_int = ri[:, :, 1]
+    img_int = 255 * np.tanh(ri_int)
+    img_int = img_int.astype(np.uint8)
+    delta_45dg = int(img_int.shape[1]/8)
+    idx_centre = int(img_int.shape[1]/2)
+    img_int = img_int[:, idx_centre - delta_45dg:idx_centre + delta_45dg]
+    cv2.imshow('intensity_image', img_int)
+    cv2.waitKey(0)
 
 # Exercise C1-5-2 : Compute pitch angle resolution
-def print_pitch_resolution(frame: dataset_pb2.Frame, lidar_name):
+def print_pitch_resolution(frame: dataset_pb2.Frame, lidar_name: str):
 
     print("Exercise C1-5-2")
     # load range image
